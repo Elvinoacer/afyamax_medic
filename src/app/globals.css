@@ -1,0 +1,126 @@
+@import "tailwindcss";
+
+@theme inline {
+  /* ── Afyamax brand system ─────────────────────────────── */
+  /* Health (deep emerald) & Wealth (warm gold) on warm linen */
+  /* NOTE: `inline` is REQUIRED — next/font exposes --font-* on <body>,
+     so theme values referencing them must be inlined into utilities. */
+  --color-cream: #faf6ef;
+  --color-linen: #f3eee2;
+  --color-line: #e5dccb;
+
+  --color-ink: #10221b;
+  --color-ink-soft: #45564d;
+
+  --color-forest: #0c3b2e;
+  --color-forest-deep: #072a20;
+  --color-pine: #0a4a34;
+  --color-leaf: #12805c;
+  --color-leaf-bright: #1a9d72;
+  --color-sage: #e7f0ea;
+  --color-mint: #dcefe5;
+
+  --color-gold: #d9a441;
+  --color-gold-deep: #b07f22;
+  --color-gold-soft: #f5e7c8;
+
+  --color-ember: #c93a2b;
+  --color-ember-deep: #a32a1e;
+  --color-blush: #fdeeec;
+
+  --font-display: var(--font-fraunces), "Georgia", serif;
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+
+  --shadow-soft: 0 1px 2px rgb(16 34 27 / 0.04), 0 8px 24px -8px rgb(16 34 27 / 0.12);
+  --shadow-lift: 0 2px 4px rgb(16 34 27 / 0.05), 0 18px 44px -12px rgb(16 34 27 / 0.22);
+
+  --animate-marquee: marquee 38s linear infinite;
+
+  @keyframes marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-50%);
+    }
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
+body {
+  background-color: var(--color-cream);
+  color: var(--color-ink);
+  font-family: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-forest-deep);
+}
+
+/* Slim brand scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-leaf) var(--color-linen);
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: var(--color-linen);
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--color-leaf);
+  border-radius: 999px;
+}
+
+/* Focus ring — accessible, on-brand */
+:focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--color-gold) 80%, transparent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@utility glass {
+  background: color-mix(in srgb, white 72%, transparent);
+  backdrop-filter: blur(14px) saturate(1.4);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  border: 1px solid color-mix(in srgb, white 55%, transparent);
+}
+
+@utility glass-dark {
+  background: color-mix(in srgb, var(--color-forest-deep) 78%, transparent);
+  backdrop-filter: blur(14px) saturate(1.3);
+  -webkit-backdrop-filter: blur(14px) saturate(1.3);
+  border: 1px solid color-mix(in srgb, white 12%, transparent);
+}
+
+/* Subtle organic dot texture for hero band */
+@utility dot-grid {
+  background-image: radial-gradient(color-mix(in srgb, var(--color-forest) 14%, transparent) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+@utility text-balance {
+  text-wrap: balance;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

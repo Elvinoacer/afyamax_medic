@@ -1,0 +1,44 @@
+// Afyamax Medical & Dental Centre — data models
+// Booking intake + first-contact inquiries
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Appointment {
+  id            String   @id @default(cuid())
+  ref           String   @unique // e.g. AFY-7K2M9Q
+  fullName      String
+  dateOfBirth   String? // YYYY-MM-DD
+  nationalId    String?
+  estate        String // e.g. Zimmerman, Githurai 44, Roysambu...
+  phone         String
+  email         String?
+  department    String // gp | dental | surgery | physio | phyto
+  practitioner  String?
+  preferredDate String // YYYY-MM-DD
+  timeWindow    String // morning | midday | afternoon
+  paymentMethod String // sha | insurance | cash | mpesa | corporate
+  notes         String?
+  consent       Boolean // explicit DPA 2019 consent (must be true)
+  status        String   @default("pending") // pending | confirmed | seen | cancelled
+  createdAt     DateTime @default(now())
+
+  @@index([department, preferredDate])
+  @@index([phone])
+}
+
+model Inquiry {
+  id        String   @id @default(cuid())
+  name      String
+  contact   String // phone or email
+  topic     String? // general | phyto | corporate | feedback
+  message   String
+  consent   Boolean // explicit DPA 2019 consent (must be true)
+  createdAt DateTime @default(now())
+}
